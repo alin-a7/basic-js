@@ -11,20 +11,31 @@ const { NotImplementedError } = require("../extensions/index.js");
  *
  */
 function encodeLine(str) {
-  codStr = "";
-  count = 1;
-  let p=1;
-  str = str.split("");
+  let count = 1;
+  let codStr = "";
   for (let i = 0; i < str.length; i++) {
-    for (k=i; k < str.length; k++) {
-     if (str[i] === str[i + p]) {
-      count+=1
-      p+=1 
+    if (str[i] === str[i + 1]) {
+      count += 1;
+    } else {
+      codStr += `${count !== 1 ? count: ''}${str[i]}`
+      count = 1;
     }
-    }
-    codStr += `${count}${str[i]}`
-    i+=count
-  }return codStr
+  }
+  return codStr;
+  // codStr = "";
+  // count = 1;
+  // let p=1;
+  // str = str.split("");
+  // for (let i = 0; i < str.length; i++) {
+  //   for (k=i; k < str.length; k++) {
+  //    if (str[i] === str[i + p]) {
+  //     count+=1
+  //     p+=1
+  //   }
+  //   }
+  //   codStr += `${count !== 1 ? count: ''}${str[i]}`
+  //   i+=count-1
+  // }return codStr
 
   // unicStr = [...new Set(str)]
   // for (let i=0; i<unicStr.length; i++){
