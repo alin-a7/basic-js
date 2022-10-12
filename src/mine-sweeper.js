@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../extensions/index.js");
 
 /**
  * In the popular Minesweeper game you have a board with some mines and those cells
@@ -25,15 +25,41 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function minesweeper(matrix) {
   let mine = [];
-  for(let i=0; i<matrix.length; i++){
-    for (let j=0; j<matrix[i].length; j++){
-      if(matrix[i][j] === true) {
-        mine.push([i, j])
+  let a = 0;
+  for (let i = 0; i < matrix.length; i++) {
+    mine[i] = [];
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (i-1>=0 && j-1>=0 && matrix[i - 1][j - 1] === true) {
+        a += 1;
+      } 
+      if (i-1>=0 && matrix[i - 1][j] === true) {
+        a += 1;
       }
+      if (i-1>=0 && j+1<matrix[i].length && matrix[i - 1][j + 1] === true) {
+        a += 1;
+      } 
+      if (j+1<matrix[i].length && matrix[i][j + 1] === true) {
+        a += 1;
+      } 
+      if (j+1<matrix[i].length && i+1<matrix.length && matrix[i + 1][j + 1] === true) {
+        a += 1;
+      }
+      if (i+1<matrix.length && matrix[i + 1][j] === true) {
+        a += 1;
+      }
+      if (i+1<matrix.length && j-1>=0 && matrix[i + 1][j-1] === true) {
+        a += 1;
+      }
+      if (j-1>=0 && matrix[i][j - 1] === true) {
+        a += 1;
+      }
+      mine[i][j] = a;
+      a = 0;
     }
-} return mine
+  }
+  return mine;
 }
 
 module.exports = {
-  minesweeper
+  minesweeper,
 };
