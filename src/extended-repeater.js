@@ -15,23 +15,29 @@ const { NotImplementedError } = require("../extensions/index.js");
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(str, options) {
+function repeater(str,
+  {
+    repeatTimes = 1,
+    separator = "+",
+    addition = "",
+    additionRepeatTimes = 1,
+    additionSeparator = "|"
+  }
+) {
   str = String(str);
-  // JSON.stringify(options.addition);
-  let optionsAddition = String(options.addition);
-  // optionsAddition = optionsAddition.toString();
+  let optionsAddition = String(addition);
 
   let newStr = [];
   let addit = [];
   let additStr;
 
   if (optionsAddition) {
-    if (options.additionRepeatTimes) {
-      for (let j = 0; j < options.additionRepeatTimes; j++) {
+    if (additionRepeatTimes) {
+      for (let j = 0; j < additionRepeatTimes; j++) {
         addit.push(optionsAddition);
-        if (options.additionRepeatTimes > 1) {
-          additStr = options.additionSeparator
-            ? addit.join(options.additionSeparator)
+        if (additionRepeatTimes > 1) {
+          additStr = additionSeparator
+            ? addit.join(additionSeparator)
             : addit.join("|");
         } else {
           additStr = addit.join("");
@@ -40,13 +46,13 @@ function repeater(str, options) {
       str = str + additStr;
     }
   }
-  for (let i = 0; i < options.repeatTimes; i++) {
+  for (let i = 0; i < repeatTimes; i++) {
     newStr.push(str);
   }
-  if (!options.repeatTimes) {
-    return options.addition ? str + options.addition : str;
+  if (!repeatTimes) {
+    return addition ? str + addition : str;
   }
-  return options.separator ? newStr.join(options.separator) : newStr.join("+");
+  return separator ? newStr.join(separator) : newStr.join("+");
 }
 
 module.exports = {
